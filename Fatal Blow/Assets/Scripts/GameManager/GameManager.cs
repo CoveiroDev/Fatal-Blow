@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector] private HudManager hudManager;
     [HideInInspector] private CameraManager cameraManager;
     [HideInInspector] private MenuManager menuManager;
+    [HideInInspector] private TutorialMessage tutorialMessage;
     [HideInInspector] public bool canFight;
 
     [Header("Create Fight")]
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        tutorialMessage = FindAnyObjectByType<TutorialMessage>();
         cameraManager = FindObjectOfType<CameraManager>();
         menuManager = FindObjectOfType<MenuManager>();
         hudManager = FindObjectOfType<HudManager>();
@@ -146,6 +148,8 @@ public class GameManager : MonoBehaviour
         opponent.transform.position = opponentSpawnPoint.position;
         opponent.GetComponent<EnemyManager>().LookAtOpponent();
 
+        if (currentLevel == 0 && playerWins == 0 && opponentWins == 0)
+            tutorialMessage.ShowMessage();
 
         cameraManager.playerOnFocus = null;
         canFight = true;
@@ -177,7 +181,7 @@ public class GameManager : MonoBehaviour
                 yield return null;
             }
             fadeImage.color = visibleColor;
-            if (currentLevel != 0)
+            if (currentLevel == 0)
             {
                 currentLevel++;
                 playerWins = 0;
@@ -187,7 +191,7 @@ public class GameManager : MonoBehaviour
                 cameraManager.transform.position = new Vector3(0, 0, 0);
                 StartCoroutine(CreateFight(PlayerName, fighters[currentLevel], arenas[currentLevel]));
             }
-            else
+            else if (currentLevel == 1)
             {
                 currentLevel = 0;
                 playerWins = 0;

@@ -6,9 +6,14 @@ public class OptionManager : MonoBehaviour
 {
     [Header("Menus")]
     PlayerControls playerControls;
+    TutorialMessage message;
     [SerializeField] private GameObject sobre;
     [SerializeField] private GameObject menu;
 
+    private void Awake()
+    {
+        message = FindAnyObjectByType<TutorialMessage>();
+    }
     private void OnEnable()
     {
         playerControls = new PlayerControls();
@@ -18,7 +23,15 @@ public class OptionManager : MonoBehaviour
     {
         if (playerControls.Player.Pause.triggered)
         {
-            TurnMenu();
+            if (!message.onTutorial)
+            {
+                TurnMenu();
+            }
+            else
+            {
+                Time.timeScale = 1;
+                sobre.SetActive(false);
+            }
         }
     }
     private void Start()

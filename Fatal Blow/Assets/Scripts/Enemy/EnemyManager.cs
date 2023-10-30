@@ -13,6 +13,7 @@ public class EnemyManager : MonoBehaviour
 
     [Header("Combo")]
     [SerializeField] private ComboList comboList;
+    public bool cantFight = false;
 
     private void Start()
     {
@@ -38,7 +39,7 @@ public class EnemyManager : MonoBehaviour
                 }
                 yield return null;
             }
-            if (status.gameManager.canFight && !status.isTakingDamage)
+            if (status.gameManager.canFight && !status.isTakingDamage && cantFight == false)
             {
                 #region Movement
                 Vector3 directionToOpponent = status.opponent.transform.position - transform.position;

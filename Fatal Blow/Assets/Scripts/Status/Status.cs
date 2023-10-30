@@ -180,11 +180,54 @@ public class Status : MonoBehaviour
                             }
                             else
                             {
+                                if (enemyManager.cantFight == false)
+                                {
+                                    damagePercentage = 0.01f;
+                                    int damageDefended = Mathf.RoundToInt(maxHealth * 0.01f);
+                                    currentHealth -= damageDefended;
+                                    anim.Play("DefenderDano_0" + currentAttack);
+                                }
+                                else
+                                {
+                                    int damageRecieved1 = Mathf.RoundToInt(maxHealth * damagePercentage);
+                                    currentHealth -= damageRecieved1;
+                                    if (status.tipoAtaque == TipoDeAtaque.Agarrar && !isGrabAttack && !opponent.isGrabAttack)
+                                    {
+                                        Agarrar();
+                                    }
+                                    if (status.tipoAtaque == TipoDeAtaque.DanoCima)
+                                    {
+                                        anim.Play("TomarDanoCima_0" + currentAttack);
+                                    }
+                                    if (status.tipoAtaque == TipoDeAtaque.DanoBaixo)
+                                    {
+                                        anim.Play("TomarDanoBaixo_0" + currentAttack);
+                                    }
+                                    if (status.tipoAtaque == TipoDeAtaque.DanoDireita)
+                                    {
+                                        anim.Play("TomarDanoDireita_0" + currentAttack);
+                                    }
+                                    if (status.tipoAtaque == TipoDeAtaque.DanoEsquerda)
+                                    {
+                                        anim.Play("TomarDanoEsquerda_0" + currentAttack);
+                                    }
 
-                                damagePercentage = 0.01f;
-                                int damageDefended = Mathf.RoundToInt(maxHealth * 0.01f);
-                                currentHealth -= damageDefended;
-                                anim.Play("DefenderDano_0" + currentAttack);
+                                    //Critico
+
+                                    if (status.tipoAtaque == TipoDeAtaque.DanoCimaCritico)
+                                    {
+                                        anim.Play("TomarDanoCimaCritico_0" + currentAttack);
+                                    }
+                                    if (status.tipoAtaque == TipoDeAtaque.DanoBaixoCritico)
+                                    {
+                                        anim.Play("TomarDanoBaixoCritico_0" + currentAttack);
+                                    }
+                                    if (status.tipoAtaque == TipoDeAtaque.DanoFrenteCritico)
+                                    {
+                                        anim.Play("TomarDanoFrenteCritico_0" + currentAttack);
+                                    }
+                                    break;
+                                }
                             }
                             break;
                         default:
