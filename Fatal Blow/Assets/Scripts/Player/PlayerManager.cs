@@ -180,11 +180,6 @@ public class PlayerManager : MonoBehaviour
     }
     void Update()
     {
-        if (playerControls.Combat.SocoAlto.triggered)
-        {
-            status.TakeDamage(status.opponent);
-        }
-
         if (!status.gameManager.canFight)
             return;
 

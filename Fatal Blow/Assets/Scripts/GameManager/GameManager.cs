@@ -126,6 +126,7 @@ public class GameManager : MonoBehaviour
         {
             player.transform.position = playerSpawnPoint.position;
             opponent.transform.position = opponentSpawnPoint.position;
+            opponent.GetComponent<EnemyManager>().LookAtOpponent();
 
             float elapsedTime = 0f;
             while (elapsedTime < fadeDuration)
@@ -135,6 +136,7 @@ public class GameManager : MonoBehaviour
                 yield return null;
             }
             fadeImage.color = invisibleColor;
+            opponent.GetComponent<EnemyManager>().LookAtOpponent();
         }
         hudManager.ShowMessage("Lutem!");
         yield return new WaitForSeconds(2f);
@@ -142,6 +144,7 @@ public class GameManager : MonoBehaviour
 
         player.transform.position = playerSpawnPoint.position;
         opponent.transform.position = opponentSpawnPoint.position;
+        opponent.GetComponent<EnemyManager>().LookAtOpponent();
 
 
         cameraManager.playerOnFocus = null;

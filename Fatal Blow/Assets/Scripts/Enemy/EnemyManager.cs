@@ -121,7 +121,7 @@ public class EnemyManager : MonoBehaviour
             yield return null;
         }
     }
-    private void LookAtOpponent()
+    public void LookAtOpponent()
     {
         Vector3 directionToOpponent = status.opponent.transform.position - transform.position;
         directionToOpponent.y = 0;
